@@ -1,6 +1,8 @@
 package mysciroguelike;
  
 //import net.slashie.libjcsi.CSIColor;
+import general.algodata.GameStateResolver;
+import general.algodata.GameStates;
 import net.slashie.libjcsi.CharKey;
 import net.slashie.libjcsi.ConsoleSystemInterface;
 import net.slashie.libjcsi.jcurses.JCursesConsoleInterface;
@@ -31,16 +33,17 @@ public class SimpleRoguelike {
         boolean exit = false;
         //display main menu here and handle it's control
         general.menugame.MainMenu.displayMenu();
+        GameStateResolver.changeGameState(GameStates.MAINMENU);
+        //======================HERE GOES KEYBOARD INPUT PROCESSING
         exit = false;
         while (!exit) {
+            //retrieving key in main thread
             key = general.algomaps.MapDisplay.globalCsi.inkey().code;
-            switch (key){
-                case CharKey.Q: case CharKey.q:
-                    exit = true;
-            }
+                System.out.println(key);
+                general.ContextKbProcessor.performAndChooseAction(key);
         }
-        //======================
-    	general.algomaps.MapDisplay.globalCsi.cls();
+        //=========================================================
+        general.algomaps.MapDisplay.globalCsi.cls();
         general.algomaps.MapDisplay.globalCsi.print(5, 5, "Welcome to The game!", 0xAABBDD);
         
         for (int i=0; i<general.algomaps.MapDisplay.globalCsi.screenGetWidth(); i++) {
