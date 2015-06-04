@@ -16,14 +16,14 @@ public class GeneralParam {
     }
     //ChunkWidth and ChunkHeight are the sizes of internal array for storing mapdata
     //screenWidth, screenHeight are the sizes of our actual display, passed to ConsoleInterface
-    public static Integer screenWidth = 80;
+    public static Integer screenWidth = 81;
     public static Integer screenHeight = 25;
     /**
      * number of chunks in FragmentMap
      */
-    public static Integer numberChunks = 8;
+    public static Integer numberChunks = 9;
     /**
      * number of fragments in AllMaps
      */
-    public static Integer numberFragments = 8;
+    public static Integer numberFragments = 9;
 }

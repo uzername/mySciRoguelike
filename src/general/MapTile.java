@@ -18,4 +18,7 @@ public class MapTile {
     public Integer prototypeIndex;
     public Double durability=-1.0; //current durability. indestructible by default.
     
+    public MapTile(Integer initialPrototype) {
+        prototypeIndex = initialPrototype;
+    }
 }

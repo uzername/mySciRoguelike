@@ -13,4 +13,5 @@ import java.util.ArrayList;
  */
 public class FragmentMap {
     public ArrayList<MapChunk> fragmentContainer = new ArrayList<>(general.algodata.GeneralParam.numberChunks);
+    
 }

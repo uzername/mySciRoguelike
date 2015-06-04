@@ -1,6 +1,7 @@
 package general;
 /**
- * player entity. Player is only one here.
+ * player entity. The main Character of the game. Player is only one here.
+ * Crude singleton
  * @author ivan
  */
 public class Player {
@@ -10,8 +11,13 @@ public class Player {
     private static Integer mapChunkXCoord;
     private static Integer mapChunkYCoord;
     
+    //player display parameters
+    public static Integer playerMainColor=0x11BBCC;
+    public static Character playerMainCharacter = '@';
+    
     private static boolean initialized=false;
     private static Player playerEntity=null;
+    //retrieve coordinates of player
     public static Integer getCurrMapChunk() {
         return currMapChunk;
     }

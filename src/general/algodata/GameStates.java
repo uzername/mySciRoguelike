@@ -1,7 +1,7 @@
 package general.algodata;
 
 /**
- * All game states.
+ * game states.
  * @author ivan
  */
 public enum GameStates{MAINMENU, MAINGAME,

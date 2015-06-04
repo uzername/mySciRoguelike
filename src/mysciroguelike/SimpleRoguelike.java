@@ -23,7 +23,7 @@ public class SimpleRoguelike {
     public void paramInit() {
         general.algomaps.MapDisplay.globalCsi = new WSwingConsoleInterface(new java.awt.Dimension(640, 480));
         ((WSwingConsoleInterface)(general.algomaps.MapDisplay.globalCsi)).setConsoleCaption("The Scientific Roguelike");
-        general.algodata.GeneralParam.defineChunkSize(40, 40);
+        general.algodata.GeneralParam.defineChunkSize(127, 127);
         //general.algodata.PrototypeCollector.loadMapTilesData();
     }
     
@@ -34,16 +34,20 @@ public class SimpleRoguelike {
         //display main menu here and handle it's control
         general.menugame.MainMenu.displayMenu();
         GameStateResolver.changeGameState(GameStates.MAINMENU);
+        System.out.println("after display");
         //======================HERE GOES KEYBOARD INPUT PROCESSING
         exit = false;
         while (!exit) {
             //retrieving key in main thread
             key = general.algomaps.MapDisplay.globalCsi.inkey().code;
-                System.out.println(key);
-                general.ContextKbProcessor.performAndChooseAction(key);
+            //System.out.println(key);
+            general.ContextKbProcessor.performAndChooseAction(key);
+            if (GameStateResolver.getCurrGameState()==GameStates.QUITGAME) 
+                {exit=true;}
         }
         //=========================================================
         general.algomaps.MapDisplay.globalCsi.cls();
+        /*
         general.algomaps.MapDisplay.globalCsi.print(5, 5, "Welcome to The game!", 0xAABBDD);
         
         for (int i=0; i<general.algomaps.MapDisplay.globalCsi.screenGetWidth(); i++) {
@@ -75,6 +79,7 @@ public class SimpleRoguelike {
             	exit = true;
             }
         }
+        */
         general.algomaps.MapDisplay.globalCsi.print(1, 20, "Press space to continue");
         general.algomaps.MapDisplay.globalCsi.refresh();
         general.algomaps.MapDisplay.globalCsi.waitKey(CharKey.SPACE);
