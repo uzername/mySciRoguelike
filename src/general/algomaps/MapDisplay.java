@@ -34,18 +34,21 @@ public class MapDisplay {
         //Must be used with context of corresponding chunk and even a fragment
         Integer startX=playerChunkMapXCoord-playerPositionX; Integer startY=playerChunkMapYCoord-playerPositionY;
         Integer endX=playerChunkMapXCoord+playerPositionX; Integer endY=playerChunkMapYCoord+playerPositionY;
+        java.util.ArrayList<Integer> startMarker = null; java.util.ArrayList<Integer> endMarker = null;
+        Integer mvmntDirection=0;
         //modifying chunk markers
                 //left start chunk
         if ((startX<0)) { 
                 if (startY>general.algodata.GeneralParam.ChunkHeight) { //lower left chunk
-                    
+                    mvmntDirection = 8;
                 }
                 if (startY<0) { //upper left chunk 
-                    
+                    mvmntDirection = 2;
                 }
                 if ((startY>=0)&&(startY<=general.algodata.GeneralParam.ChunkHeight)) { //just leftmost chunk
-                    
+                    mvmntDirection = 1;
                 }
+                startMarker = MapProcessor.getNeighbourMapArea(startFragment,startChunk,8);
         }
                 //right start chunk - this variant is geometrically impossible. Just refer to graph model
         if (startX>general.algodata.GeneralParam.ChunkWidth) {
@@ -84,7 +87,6 @@ public class MapDisplay {
                 
             }
         }
-        
         
         //checking boundaries and adjusting display positions
         if (startX<0) {

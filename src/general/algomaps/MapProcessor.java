@@ -207,248 +207,364 @@ public class MapProcessor {
                         break;
                     }
                     case 0: {
-                        
+                        result.set(0,3);
                         break;
                     }
                     case 5: {
-                        
+                        result.set(0,4);
                         break;
                     }
                     case 8: {
-                        
+                        result.set(0,1);
                         break;
                     }
                     case 7: {
-                        
+                        result.set(0,0);
                         break;
                     }
                     case 6: {
-                        
+                        result.set(0, 5);
                         break;
                     }
                     default: {
                        throw new IllegalArgumentException("Invalid Chunk:"+initialChunkCoord);
                             }
+                }
+                if (switchChunk==true) {
+                    switch (initialFragmentCoord) {
+                            case 0: { result.set(1, 3); break;}
+                            case 7: { result.set(1, 0); break;}
+                            case 2:
+                            case 3:
+                            case 4: {throw new UnsupportedOperationException("moving away from AllMaps array from "+initialFragmentCoord);}
+                            case 5: { result.set(1, 4); break;}
+                            case 6: { result.set(1, 5); break;}
+                            case 1: { result.set(1, 2); break;}
+                            default: {
+                                throw new IllegalArgumentException("Invalid Fragment:"+initialFragmentCoord);
+                            }
+                        }
                 }
                 break;
             }
             case 4: { //moving north-east
+                Boolean switchChunk = false;
                 switch (initialChunkCoord) {
-                    case 2: {
-                        
+                    case 1: { //not switching chunk
+                        result.set(0,3);
                         break;
                     }
-                    case 3: {
-                        
+                    case 2: { //switch chunk
+                        result.set(0,7);
+                        switchChunk=true;
+                        break;
+                    }
+                    case 3: { //switch chunk
+                        result.set(0, 6);
+                        switchChunk=true;
                         break;
                     }
                     case 4: {
-                        
-                        break;
-                    }
-                    case 1: {
-                        
-                        break;
-                    }
-                    case 0: {
-                        
+                        result.set(0, 8);
+                        switchChunk=true;
                         break;
                     }
                     case 5: {
-                        
-                        break;
-                    }
-                    case 8: {
-                        
-                        break;
-                    }
-                    case 7: {
-                        
+                        result.set(0,2);
+                        switchChunk=true;
                         break;
                     }
                     case 6: {
-                        
+                        result.set(0,1);
+                        switchChunk=true;
+                        break;
+                    }
+                    case 7: { //not switching chunk
+                        result.set(0,5);
+                        break;
+                    }
+                    case 8: { //not switching chunk
+                        result.set(0,0);
+                        break;
+                    }
+                    case 0: {//not switching chunk
+                        result.set(0,4);
                         break;
                     }
                     default: {
                        throw new IllegalArgumentException("Invalid Chunk:"+initialChunkCoord);
                             }
+                }
+                if (switchChunk == true) {
+                    switch (initialFragmentCoord) {
+                            case 1: { result.set(1, 3); break;}
+                            case 2: { throw new UnsupportedOperationException("moving away from AllMaps array from "+initialFragmentCoord); }
+                            case 3: { throw new UnsupportedOperationException("moving away from AllMaps array from "+initialFragmentCoord);  }
+                            case 4: { throw new UnsupportedOperationException("moving away from AllMaps array from "+initialFragmentCoord); }
+                            case 5: { throw new UnsupportedOperationException("moving away from AllMaps array from "+initialFragmentCoord); }
+                            case 6: { throw new UnsupportedOperationException("moving away from AllMaps array from "+initialFragmentCoord); }
+                            case 7: { result.set(1, 5); break;}
+                            case 8: { result.set(1, 0); break;}
+                            default: {
+                                throw new IllegalArgumentException("Invalid Fragment:"+initialFragmentCoord);
+                            }
+                        }
                 }
                 break;
             }
             case 5: { //moving east
+                Boolean switchChunk=false;
                 switch (initialChunkCoord) {
-                    case 2: {
-                        
-                        break;
-                    }
-                    case 3: {
-                        
-                        break;
-                    }
-                    case 4: {
-                        
+                    case 0: {
+                        result.set(0,5);
                         break;
                     }
                     case 1: {
-                        
+                        result.set(0,0);
                         break;
                     }
-                    case 0: {
-                        
+                    case 2: {
+                        result.set(0,3);
                         break;
                     }
-                    case 5: {
-                        
+                    case 3: {
+                        result.set(0,4);
                         break;
                     }
-                    case 8: {
-                        
+                    case 4: { //switch fragment
+                        result.set(0,2);
+                        switchChunk=true;
                         break;
                     }
-                    case 7: {
-                        
+                    case 5: { //switch fragment
+                        result.set(0,1);
+                        switchChunk=true;
                         break;
                     }
                     case 6: {
-                        
+                        result.set(0,8);
+                        switchChunk=true;
+                        break;
+                    }
+                    case 7: {
+                        result.set(0,6);
+                        break;
+                    }
+                    case 8: {
+                        result.set(0,7);
                         break;
                     }
                     default: {
                        throw new IllegalArgumentException("Invalid Chunk:"+initialChunkCoord);
                             }
+                }
+                if (switchChunk == true) {
+                    switch (initialFragmentCoord) {
+                            case 1: { result.set(1, 0); break; }
+                            case 2: { result.set(1, 3); break; }
+                            case 3: { result.set(1, 4); break; }
+                            case 4: { throw new UnsupportedOperationException("moving away from AllMaps array from "+initialFragmentCoord); }
+                            case 5: { throw new UnsupportedOperationException("moving away from AllMaps array from "+initialFragmentCoord); }
+                            case 6: { throw new UnsupportedOperationException("moving away from AllMaps array from "+initialFragmentCoord); }
+                            case 7: { result.set(1, 6); break;}
+                            case 8: { result.set(1, 7); break;}
+                            default: {
+                                throw new IllegalArgumentException("Invalid Fragment:"+initialFragmentCoord);
+                            }
+                        }
                 }
                 break;
             }
             case 6: { //moving south-east
+                Boolean switchChunk=false;
                 switch (initialChunkCoord) {
+                    case 1: {
+                        result.set(0,7);
+                        break;
+                    }
                     case 2: {
-                        
+                        result.set(0,0);
                         break;
                     }
                     case 3: {
-                        
+                        result.set(0,5);
                         break;
                     }
                     case 4: {
-                        
-                        break;
-                    }
-                    case 1: {
-                        
-                        break;
-                    }
-                    case 0: {
-                        
+                        result.set(0,1);
+                        switchChunk=true;
                         break;
                     }
                     case 5: {
-                        
-                        break;
-                    }
-                    case 8: {
-                        
-                        break;
-                    }
-                    case 7: {
-                        
+                        result.set(0,8);
+                        switchChunk=true;
                         break;
                     }
                     case 6: {
-                        
+                        result.set(0,2);
+                        switchChunk=true;
+                        break;
+                    }
+                    case 7: {
+                        result.set(0, 4);
+                        switchChunk=true;
+                        break;
+                    }
+                    case 8: {
+                        result.set(0, 3);
+                        switchChunk=true;
+                        break;
+                    }
+                    case 0: {
+                        result.set(0, 6);
                         break;
                     }
                     default: {
                        throw new IllegalArgumentException("Invalid Chunk:"+initialChunkCoord);
                             }
+                }
+                if (switchChunk == true) {
+                    switch (initialFragmentCoord) {
+                            case 1: { result.set(1, 7); break; }
+                            case 2: { result.set(1, 0); break; }
+                            case 3: { result.set(1, 5); break; }
+                            case 4: { throw new UnsupportedOperationException("moving away from AllMaps array from "+initialFragmentCoord); }
+                            case 5: { throw new UnsupportedOperationException("moving away from AllMaps array from "+initialFragmentCoord); }
+                            case 6: { throw new UnsupportedOperationException("moving away from AllMaps array from "+initialFragmentCoord); }
+                            case 7: { throw new UnsupportedOperationException("moving away from AllMaps array from "+initialFragmentCoord); }
+                            case 8: { throw new UnsupportedOperationException("moving away from AllMaps array from "+initialFragmentCoord); }
+                            default: {
+                                throw new IllegalArgumentException("Invalid Fragment:"+initialFragmentCoord);
+                            }
+                        }
                 }
                 break;
             }
             case 7: { //moving south
+                Boolean switchChunk=false;
                 switch (initialChunkCoord) {
+                    case 1: {
+                        result.set(0, 8);
+                        break;
+                    }
                     case 2: {
-                        
+                        result.set(0, 1);
                         break;
                     }
                     case 3: {
-                        
+                        result.set(0, 0);
                         break;
                     }
                     case 4: {
-                        
-                        break;
-                    }
-                    case 1: {
-                        
-                        break;
-                    }
-                    case 0: {
-                        
+                        result.set(0, 5);
                         break;
                     }
                     case 5: {
-                        
-                        break;
-                    }
-                    case 8: {
-                        
-                        break;
-                    }
-                    case 7: {
-                        
+                        result.set(0, 6);
                         break;
                     }
                     case 6: {
-                        
+                        result.set(0, 4);
+                        switchChunk=true;
+                        break;
+                    }
+                    case 7: {
+                        result.set(0, 3);
+                        switchChunk=true;
+                        break;
+                    }
+                    case 8: {
+                        result.set(0, 2);
+                        switchChunk=true;
+                        break;
+                    }
+                    case 0: {
+                        result.set(0, 7);
                         break;
                     }
                     default: {
                        throw new IllegalArgumentException("Invalid Chunk:"+initialChunkCoord);
                             }
                 }
+                if (switchChunk == true) {
+                    switch (initialFragmentCoord) {
+                            case 1: { result.set(1, 7); break; }
+                            case 2: { result.set(1, 0); break; }
+                            case 3: { result.set(1, 5); break; }
+                            case 4: { throw new UnsupportedOperationException("moving away from AllMaps array from "+initialFragmentCoord); }
+                            case 5: { throw new UnsupportedOperationException("moving away from AllMaps array from "+initialFragmentCoord); }
+                            case 6: { throw new UnsupportedOperationException("moving away from AllMaps array from "+initialFragmentCoord); }
+                            case 7: { throw new UnsupportedOperationException("moving away from AllMaps array from "+initialFragmentCoord); }
+                            case 8: { throw new UnsupportedOperationException("moving away from AllMaps array from "+initialFragmentCoord); }
+                            default: {
+                                throw new IllegalArgumentException("Invalid Fragment:"+initialFragmentCoord);
+                            }
+                        }
+                }
                 break;
             }
-            case 8: { //moving south-wesst
+            case 8: { //moving south-west
+                Boolean switchChunk = false;
                 switch (initialChunkCoord) {
+                    case 1: {
+                        result.set(0, 6);
+                        switchChunk = true;
+                        break;
+                    }
                     case 2: {
-                        
+                        result.set(0, 5);
+                        switchChunk=true;
                         break;
                     }
                     case 3: {
-                        
+                        result.set(0, 5);
                         break;
                     }
                     case 4: {
-                        
-                        break;
-                    }
-                    case 1: {
-                        
-                        break;
-                    }
-                    case 0: {
-                        
+                        result.set(0, 0);
                         break;
                     }
                     case 5: {
-                        
-                        break;
-                    }
-                    case 8: {
-                        
-                        break;
-                    }
-                    case 7: {
-                        
+                        result.set(0, 7);
                         break;
                     }
                     case 6: {
-                        
+                        result.set(0, 3);
+                        switchChunk=true;
+                        break;
+                    }
+                    case 7: {
+                        result.set(0, 2);
+                        switchChunk=true;
+                        break;
+                    }
+                    case 8: {
+                        result.set(0, 4);
+                        switchChunk=true;
+                        break;
+                    }
+                    case 0: {
+                        result.set(0, 8);
                         break;
                     }
                     default: {
                        throw new IllegalArgumentException("Invalid Chunk:"+initialChunkCoord);
                             }
+                }
+                if (switchChunk == true) {
+                    switch (initialFragmentCoord) {
+                            case 1: { throw new UnsupportedOperationException("moving away from AllMaps array from "+initialFragmentCoord); }
+                            case 2: { throw new UnsupportedOperationException("moving away from AllMaps array from "+initialFragmentCoord); }
+                            case 3: { result.set(1, 1); break; }
+                            case 4: { result.set(1, 0); break; }
+                            case 5: { result.set(1, 7); break; }
+                            case 6: { throw new UnsupportedOperationException("moving away from AllMaps array from "+initialFragmentCoord); }
+                            case 7: { throw new UnsupportedOperationException("moving away from AllMaps array from "+initialFragmentCoord); }
+                            case 8: { throw new UnsupportedOperationException("moving away from AllMaps array from "+initialFragmentCoord); }
+                            default: {
+                                throw new IllegalArgumentException("Invalid Fragment:"+initialFragmentCoord);
+                            }
+                        }
                 }
                 break;
             }
