@@ -12,8 +12,8 @@ import java.util.ArrayList;
  * @author ivan
  */
 public class MapChunk {
-    public ArrayList<MapTile> ChunkMapContainer = new ArrayList<>(general.algodata.GeneralParam.ChunkHeight*general.algodata.GeneralParam.ChunkWidth);
-    
+    //public ArrayList<MapTile> ChunkMapContainer = new ArrayList<>(general.algodata.GeneralParam.ChunkHeight*general.algodata.GeneralParam.ChunkWidth);
+    public ArrayList<ArrayList<MapTile>> ChunkMapContainer = null;
     //to save memory we may store uniformly filled MapChunk in a different manner
     //(for chunks which are filled with one MapTile, such as sky chunk for example)
     /**

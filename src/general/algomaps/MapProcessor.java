@@ -28,15 +28,31 @@ public class MapProcessor {
         
         currentMapBuffer = new AllMaps(); //initializing currently used MapBuffer
         currentMapBuffer.generalMap.add(new FragmentMap());
-        currentMapBuffer.generalMap.get(0).fragmentContainer.add(new MapChunk());
+        for (int i=0; i<=8; i++) {
+            currentMapBuffer.generalMap.get(0).fragmentContainer.add(new MapChunk());
+        }
     }
     public static void testFillMap() { //test routine of map
-        MapChunk theMapChunk = currentMapBuffer.generalMap.get(0).fragmentContainer.get(0);
-        //making borders of theMapChunk with walls
-        for (int i=0; i<(GeneralParam.ChunkWidth*GeneralParam.ChunkHeight); i++) {
-            theMapChunk.ChunkMapContainer.add(new MapTile(1));
-        }
+        MapChunk firstMapChunk = currentMapBuffer.generalMap.get(0).fragmentContainer.get(0);
+                for (int j=0; j<(GeneralParam.ChunkHeight); j++) {
+                    ArrayList<MapTile> singleChunkRow = new ArrayList<>();
+                    for (int k=1; k<GeneralParam.ChunkWidth; k++) {
+                        singleChunkRow.add(new MapTile(1));
+                    }
+                    firstMapChunk.ChunkMapContainer.add(singleChunkRow);
+                }
         
+        for (int i=1; i<=8; i++) {
+            MapChunk theMapChunk = currentMapBuffer.generalMap.get(0).fragmentContainer.get(i);
+                for (int j=0; j<(GeneralParam.ChunkHeight); j++) {
+                    ArrayList<MapTile> singleChunkRow = new ArrayList<>();
+                    singleChunkRow.add(new MapTile(2));
+                    for (int k=1; k<GeneralParam.ChunkWidth; k++) {
+                        singleChunkRow.add(new MapTile(1));
+                    }
+                    theMapChunk.ChunkMapContainer.add(singleChunkRow);
+                }
+        }
     }
     /**
      * finds a neighbour MapChunk. Service routine, used in MapDisplay routines
@@ -566,6 +582,9 @@ public class MapProcessor {
                             }
                         }
                 }
+                break;
+            }
+            case 0: { //nothing to evaluate, nowhere to move
                 break;
             }
             default: {

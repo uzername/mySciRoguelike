@@ -13,8 +13,16 @@ public class MapDisplay {
     private static Integer playerPositionX =new Integer(GeneralParam.screenWidth/2) + 1;
     private static Integer playerPositionY =new Integer(GeneralParam.screenHeight/2) + 1;
     /**
+     * get the detailed description of startChunk and endChunk, both as startFragment/endFragment.
+     * used in renderMap
+     */
+    private static void detailDrawPositions() {
+        
+    }
+    /**
      * render mapdata (one or several mapchunks). Used to draw terrain 
      * Making it static too, it is used in many places in project
+     * The epic method. Probably should split it to several
      */
     public static void renderMap() {
         //we have index of current mapchunk
@@ -40,15 +48,18 @@ public class MapDisplay {
                 //left start chunk
         if ((startX<0)) { 
                 if (startY>general.algodata.GeneralParam.ChunkHeight) { //lower left chunk
+                    //this chink is located to southwest
                     mvmntDirection = 8;
                 }
                 if (startY<0) { //upper left chunk 
+                    //this chunk is located norhwest
                     mvmntDirection = 2;
                 }
                 if ((startY>=0)&&(startY<=general.algodata.GeneralParam.ChunkHeight)) { //just leftmost chunk
+                    //this chunk is located to west
                     mvmntDirection = 1;
                 }
-                startMarker = MapProcessor.getNeighbourMapArea(startFragment,startChunk,8);
+                startMarker = MapProcessor.getNeighbourMapArea(startChunk,startFragment,mvmntDirection);
         }
                 //right start chunk - this variant is geometrically impossible. Just refer to graph model
         if (startX>general.algodata.GeneralParam.ChunkWidth) {
@@ -56,16 +67,23 @@ public class MapDisplay {
         }
                 //central (straight) start chunk
         if ((startX<general.algodata.GeneralParam.ChunkWidth)&&(startX>0)) {
-            if (startY>general.algodata.GeneralParam.ChunkHeight) { // lower (straight) start chunk
-                
+            // lower (straight) start chunk
+            if (startY>general.algodata.GeneralParam.ChunkHeight) {
+                //this chunk is located to north
+                mvmntDirection=3;
             }
-            if (startY<0) { //higher (straight) start chunk
-            
+            //higher (straight) start chunk
+            if (startY<0) {
+                //this chunk is located to south
+                mvmntDirection=7;
             }
+            //nothing to change. Standing in place
             if ((startY>=0)&&(startY<=general.algodata.GeneralParam.ChunkHeight)) { //the chunk remains the same. nothing to change
-                
+                mvmntDirection=0;
             }
+            startMarker = MapProcessor.getNeighbourMapArea(startChunk, startFragment, mvmntDirection);
         }
+            System.out.println("start MovementDirection = "+mvmntDirection+"; startMarker="+startMarker);
         //checking end chunk markers
                 //left end chunk - this variant is geometrically impossible
         if ((endX<0)) { 
@@ -73,21 +91,31 @@ public class MapDisplay {
         }
                 //right end chunk
         if (endX>general.algodata.GeneralParam.ChunkWidth) {
-            
+            if (endY>general.algodata.GeneralParam.ChunkHeight) { // lower right end chunk
+                mvmntDirection=6;
+            }
+            if (endY<0) { //higher (right) end chunk
+                mvmntDirection=4;
+            }
+            if ((endY>=0)&&(endY<=general.algodata.GeneralParam.ChunkHeight)) { //straight right end chunk
+                mvmntDirection=5;
+            }
+            endMarker = MapProcessor.getNeighbourMapArea(endChunk, endFragment, mvmntDirection);
         }
                 //central (straight) start chunk
         if ((endX<=general.algodata.GeneralParam.ChunkWidth)&&(endX>=0)) {
-            if (endY>general.algodata.GeneralParam.ChunkHeight) { // lower (straight) start chunk
-                
+            if (endY>general.algodata.GeneralParam.ChunkHeight) { // lower (straight) end chunk
+                mvmntDirection=7;
             }
             if (endY<0) { //higher (straight) start chunk
-            
+                mvmntDirection=3;
             }
             if ((endY>=0)&&(endY<=general.algodata.GeneralParam.ChunkHeight)) { //the chunk remains the same. nothing to change
-                
+                mvmntDirection=0;
             }
+            endMarker = MapProcessor.getNeighbourMapArea(endChunk, endFragment, mvmntDirection);
         }
-        
+        System.out.println("end MovementDirection="+mvmntDirection+"; endMarker="+endMarker);
         //checking boundaries and adjusting display positions
         if (startX<0) {
             startX=general.algodata.GeneralParam.ChunkWidth+startX;        
@@ -104,9 +132,40 @@ public class MapDisplay {
         //draw the stuff, each symbol of display screen
         System.out.println("Printing map");
         System.out.println("(startX="+startX+"; startY="+startY+"); endX="+endX+"; endY="+endY);
-        for (int i=0; i<general.algodata.GeneralParam.screenHeight; i++) {
-            for (int j=0; j<general.algodata.GeneralParam.screenWidth; j++) {
-                
+        /*
+        ++++++ Map display algorithm ++++++
+        we have relative coordinates (startX, startY) and (endX, endY). These are relative to starting/ending 
+        MapChunk and MapFragment. Starting mapChunk/mapFragment are in startFragment. This info is obtained from getNeighbourMapArea
+        Ending mapChunk/mapFragment are in endFragment. We also have Player's current Fragment and Chunk.
+        While drawing map, we start from (startX, startY, [mapChunk, mapFragment]). We move from left to right, crossing some borders of mapFragments/mapChunks.
+        We take data from current-cycle MapChunk and draw these on screen
+        */
+        Integer currentCycleX=startX; Integer currentCycleY=startY; 
+        Integer currentCycleChunkCoord=startMarker.get(0); Integer currentCycleFragmentCoord=startMarker.get(1);
+        for (int i=0; i<general.algodata.GeneralParam.screenHeight; i++) { //filling by rows (SCREEN COORDS!)
+            for (int j=0; j<general.algodata.GeneralParam.screenWidth; j++) { //iterating over each symbl of row (SCREEN COORDS!)
+                /*
+                general.algomaps.MapDisplay.globalCsi.print(i,j,
+                      general.algodata.PrototypeCollector.mapTilesData.get(general.algomaps.MapProcessor.currentMapBuffer.generalMap.get(currentCycleFragmentCoord).fragmentContainer.get(currentCycleChunkCoord).ChunkMapContainer.get(0).prototypeIndex).mapSymbol.toString()
+                ); 
+                */
+                currentCycleX+=1;
+                if (currentCycleX>general.algodata.GeneralParam.ChunkWidth) { 
+                    //we have changed the MapChunk while moving to East
+                    java.util.ArrayList<Integer> newChunkFragmentData = MapProcessor.getNeighbourMapArea(currentCycleChunkCoord, currentCycleFragmentCoord, 5);
+                    System.out.println("Changed mapchunk while drawing (horizontal movement) to "+newChunkFragmentData);
+                    currentCycleX = 0;
+                    currentCycleChunkCoord = newChunkFragmentData.get(0);
+                    currentCycleFragmentCoord = newChunkFragmentData.get(1);
+                }
+            }
+            currentCycleY+=1;
+            if (currentCycleY>general.algodata.GeneralParam.ChunkHeight) {
+                java.util.ArrayList<Integer> newChunkFragmentData = MapProcessor.getNeighbourMapArea(currentCycleChunkCoord, currentCycleFragmentCoord, 5);
+                System.out.println("Changed mapchunk while drawing (vertical movement) to "+newChunkFragmentData);
+                currentCycleY = 0;
+                currentCycleChunkCoord = newChunkFragmentData.get(0);
+                currentCycleFragmentCoord = newChunkFragmentData.get(1);
             }
         }
         general.algomaps.MapDisplay.globalCsi.refresh();
