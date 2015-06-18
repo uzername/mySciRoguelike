@@ -25,12 +25,24 @@ public class MapProcessor {
     public static void initMapProcessor() {
         //load tileset data
         PrototypeCollector.loadMapTilesData();
-        
         currentMapBuffer = new AllMaps(); //initializing currently used MapBuffer
-        currentMapBuffer.generalMap.add(new FragmentMap());
+        currentMapBuffer.generalMap.add(new FragmentMap()); //at first we have only one Fragment
         for (int i=0; i<=8; i++) {
-            currentMapBuffer.generalMap.get(0).fragmentContainer.add(new MapChunk());
+            MapChunk tmpChunk = new MapChunk();
+            tmpChunk.fillChunkMapContainer();
+            currentMapBuffer.generalMap.get(0).fragmentContainer.add(tmpChunk);
         }
+    }
+    /**
+     * use this nice subroutine instead of crawling through data structures every time
+     * when you need to get a MapTile by a set of specific coordinates
+     * (method was previously researched at MapDisplay)
+     * @return MapTile
+     */
+    public static MapTile getMapTileByCoordinates(Integer fragmentCoord, Integer chunkCoord) {
+        MapTile tile2Return = null;
+        //tile2Return = general.algomaps.MapProcessor.currentMapBuffer.generalMap.get(fragmentCoord).fragmentContainer.get(chunkCoord).ChunkMapContainer.get(0);
+        return tile2Return;
     }
     public static void testFillMap() { //test routine of map
         MapChunk firstMapChunk = currentMapBuffer.generalMap.get(0).fragmentContainer.get(0);
@@ -44,6 +56,7 @@ public class MapProcessor {
         
         for (int i=1; i<=8; i++) {
             MapChunk theMapChunk = currentMapBuffer.generalMap.get(0).fragmentContainer.get(i);
+            System.out.println("TestFillMap: now working with Chunk #"+i+" : "+(theMapChunk==null ? "null!":"not null"));
                 for (int j=0; j<(GeneralParam.ChunkHeight); j++) {
                     ArrayList<MapTile> singleChunkRow = new ArrayList<>();
                     singleChunkRow.add(new MapTile(2));
@@ -376,6 +389,7 @@ public class MapProcessor {
                 }
                 if (switchChunk == true) {
                     switch (initialFragmentCoord) {
+                            case 0: { result.set(1, 5); break; }
                             case 1: { result.set(1, 0); break; }
                             case 2: { result.set(1, 3); break; }
                             case 3: { result.set(1, 4); break; }

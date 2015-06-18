@@ -8,7 +8,7 @@ package general;
 import java.util.ArrayList;
 
 /**
- * Single map fragment. Consists of 8 ScreenMap
+ * Single map fragment. Consists of 8 MapChunks
  * @author ivan
  */
 public class FragmentMap {

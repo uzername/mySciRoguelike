@@ -143,6 +143,9 @@ public class MapDisplay {
         Integer currentCycleX=startX; Integer currentCycleY=startY; 
         Integer currentCycleChunkCoord=startMarker.get(0); Integer currentCycleFragmentCoord=startMarker.get(1);
         for (int i=0; i<general.algodata.GeneralParam.screenHeight; i++) { //filling by rows (SCREEN COORDS!)
+            //remember where (chunk/fragment) we started horizontal steps
+            Integer initLinearChunk = currentCycleChunkCoord;
+            Integer initLinearFragment  = currentCycleFragmentCoord;
             for (int j=0; j<general.algodata.GeneralParam.screenWidth; j++) { //iterating over each symbl of row (SCREEN COORDS!)
                 /*
                 general.algomaps.MapDisplay.globalCsi.print(i,j,
@@ -152,14 +155,18 @@ public class MapDisplay {
                 currentCycleX+=1;
                 if (currentCycleX>general.algodata.GeneralParam.ChunkWidth) { 
                     //we have changed the MapChunk while moving to East
+                        System.out.println("current coordinates: ["+"f="+currentCycleFragmentCoord+",c="+currentCycleChunkCoord+",("+currentCycleX+","+currentCycleY+") scr=("+i+","+j+")");
                     java.util.ArrayList<Integer> newChunkFragmentData = MapProcessor.getNeighbourMapArea(currentCycleChunkCoord, currentCycleFragmentCoord, 5);
-                    System.out.println("Changed mapchunk while drawing (horizontal movement) to "+newChunkFragmentData);
+                        System.out.println("Changed mapchunk while drawing (horizontal movement) to "+newChunkFragmentData);
                     currentCycleX = 0;
                     currentCycleChunkCoord = newChunkFragmentData.get(0);
                     currentCycleFragmentCoord = newChunkFragmentData.get(1);
+                        System.out.println("updated coordinates: ["+"f="+currentCycleFragmentCoord+",c="+currentCycleChunkCoord+",("+currentCycleX+","+currentCycleY+")"+"scr=("+i+","+j+")");
                 }
             }
+            currentCycleChunkCoord = initLinearChunk; currentCycleFragmentCoord = initLinearFragment;
             currentCycleY+=1;
+            System.out.println("moving to next line #"+currentCycleY);
             if (currentCycleY>general.algodata.GeneralParam.ChunkHeight) {
                 java.util.ArrayList<Integer> newChunkFragmentData = MapProcessor.getNeighbourMapArea(currentCycleChunkCoord, currentCycleFragmentCoord, 5);
                 System.out.println("Changed mapchunk while drawing (vertical movement) to "+newChunkFragmentData);

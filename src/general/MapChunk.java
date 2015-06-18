@@ -13,7 +13,26 @@ import java.util.ArrayList;
  */
 public class MapChunk {
     //public ArrayList<MapTile> ChunkMapContainer = new ArrayList<>(general.algodata.GeneralParam.ChunkHeight*general.algodata.GeneralParam.ChunkWidth);
+    /**
+     * stores MapTile objects. The most important container to store lvl terrain data
+     */
     public ArrayList<ArrayList<MapTile>> ChunkMapContainer = null;
+    /**
+     * we need to fill ChunkMapContainer which stores MapTile objects if uniformTile is null.
+     */
+    public void fillChunkMapContainer() {
+        ChunkMapContainer = new ArrayList<>();
+        for (int i=0; i<general.algodata.GeneralParam.ChunkHeight; i++) {
+            ArrayList<MapTile> singleTileRow = new ArrayList();
+            for (int j=0; j<general.algodata.GeneralParam.ChunkWidth; j++) {
+                singleTileRow.add(null);
+            }
+            ChunkMapContainer.add(singleTileRow);
+        }
+    }
+    public void simpleInitChunkMapContainer() {
+        ChunkMapContainer = new ArrayList<>();
+    }
     //to save memory we may store uniformly filled MapChunk in a different manner
     //(for chunks which are filled with one MapTile, such as sky chunk for example)
     /**
