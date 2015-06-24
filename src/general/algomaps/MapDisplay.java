@@ -152,8 +152,16 @@ public class MapDisplay {
                       general.algodata.PrototypeCollector.mapTilesData.get(general.algomaps.MapProcessor.currentMapBuffer.generalMap.get(currentCycleFragmentCoord).fragmentContainer.get(currentCycleChunkCoord).ChunkMapContainer.get(0).prototypeIndex).mapSymbol.toString()
                 ); 
                 */
+                /*
+                general.algomaps.MapDisplay.globalCsi.print(i, j, 
+                general.algodata.PrototypeCollector.mapTilesData.get(
+                    general.algomaps.MapProcessor.getMapTileByCoordinates(currentCycleFragmentCoord, currentCycleChunkCoord, currentCycleY, currentCycleX).prototypeIndex).mapSymbol.toString() );
+                */
+                System.out.println("printing tile at coordinates: ["+"f="+currentCycleFragmentCoord+",c="+currentCycleChunkCoord+",("+currentCycleX+","+currentCycleY+") scr=("+i+","+j+")");
+                System.out.println(general.algomaps.MapProcessor.getMapTileByCoordinates(currentCycleFragmentCoord, currentCycleChunkCoord, currentCycleY, currentCycleX));
                 currentCycleX+=1;
-                if (currentCycleX>general.algodata.GeneralParam.ChunkWidth) { 
+                //equality into condition was added because it used to cause an exception. Originally it was '>'...
+                if (currentCycleX>=general.algodata.GeneralParam.ChunkWidth) { 
                     //we have changed the MapChunk while moving to East
                         System.out.println("current coordinates: ["+"f="+currentCycleFragmentCoord+",c="+currentCycleChunkCoord+",("+currentCycleX+","+currentCycleY+") scr=("+i+","+j+")");
                     java.util.ArrayList<Integer> newChunkFragmentData = MapProcessor.getNeighbourMapArea(currentCycleChunkCoord, currentCycleFragmentCoord, 5);
@@ -167,7 +175,8 @@ public class MapDisplay {
             currentCycleChunkCoord = initLinearChunk; currentCycleFragmentCoord = initLinearFragment;
             currentCycleY+=1;
             System.out.println("moving to next line #"+currentCycleY);
-            if (currentCycleY>general.algodata.GeneralParam.ChunkHeight) {
+            //equality into condition was added because it used to cause an exception. Originally it was '>'...
+            if (currentCycleY>=general.algodata.GeneralParam.ChunkHeight) {
                 java.util.ArrayList<Integer> newChunkFragmentData = MapProcessor.getNeighbourMapArea(currentCycleChunkCoord, currentCycleFragmentCoord, 5);
                 System.out.println("Changed mapchunk while drawing (vertical movement) to "+newChunkFragmentData);
                 currentCycleY = 0;
@@ -175,6 +184,7 @@ public class MapDisplay {
                 currentCycleFragmentCoord = newChunkFragmentData.get(1);
             }
         }
+        System.out.println("done drawing");
         general.algomaps.MapDisplay.globalCsi.refresh();
     }
     /**

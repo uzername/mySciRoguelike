@@ -39,19 +39,20 @@ public class MapProcessor {
      * (method was previously researched at MapDisplay)
      * @return MapTile
      */
-    public static MapTile getMapTileByCoordinates(Integer fragmentCoord, Integer chunkCoord) {
+    public static MapTile getMapTileByCoordinates(Integer fragmentCoord, Integer chunkCoord, Integer tileX, Integer tileY) {
         MapTile tile2Return = null;
-        //tile2Return = general.algomaps.MapProcessor.currentMapBuffer.generalMap.get(fragmentCoord).fragmentContainer.get(chunkCoord).ChunkMapContainer.get(0);
+        tile2Return = general.algomaps.MapProcessor.currentMapBuffer.generalMap.get(fragmentCoord).fragmentContainer.get(chunkCoord).ChunkMapContainer.get(tileX).get(tileY);
         return tile2Return;
     }
     public static void testFillMap() { //test routine of map
+        //map chunks are initialized by this moment
         MapChunk firstMapChunk = currentMapBuffer.generalMap.get(0).fragmentContainer.get(0);
                 for (int j=0; j<(GeneralParam.ChunkHeight); j++) {
                     ArrayList<MapTile> singleChunkRow = new ArrayList<>();
                     for (int k=1; k<GeneralParam.ChunkWidth; k++) {
                         singleChunkRow.add(new MapTile(1));
                     }
-                    firstMapChunk.ChunkMapContainer.add(singleChunkRow);
+                    firstMapChunk.ChunkMapContainer.set(j, singleChunkRow);
                 }
         
         for (int i=1; i<=8; i++) {
@@ -63,7 +64,7 @@ public class MapProcessor {
                     for (int k=1; k<GeneralParam.ChunkWidth; k++) {
                         singleChunkRow.add(new MapTile(1));
                     }
-                    theMapChunk.ChunkMapContainer.add(singleChunkRow);
+                    theMapChunk.ChunkMapContainer.set(j, singleChunkRow);
                 }
         }
     }
