@@ -152,13 +152,15 @@ public class MapDisplay {
                       general.algodata.PrototypeCollector.mapTilesData.get(general.algomaps.MapProcessor.currentMapBuffer.generalMap.get(currentCycleFragmentCoord).fragmentContainer.get(currentCycleChunkCoord).ChunkMapContainer.get(0).prototypeIndex).mapSymbol.toString()
                 ); 
                 */
-                /*
-                general.algomaps.MapDisplay.globalCsi.print(i, j, 
+                
+                general.algomaps.MapDisplay.globalCsi.print(j, i, 
                 general.algodata.PrototypeCollector.mapTilesData.get(
                     general.algomaps.MapProcessor.getMapTileByCoordinates(currentCycleFragmentCoord, currentCycleChunkCoord, currentCycleY, currentCycleX).prototypeIndex).mapSymbol.toString() );
-                */
+                
+                /*
                 System.out.println("printing tile at coordinates: ["+"f="+currentCycleFragmentCoord+",c="+currentCycleChunkCoord+",("+currentCycleX+","+currentCycleY+") scr=("+i+","+j+")");
                 System.out.println(general.algomaps.MapProcessor.getMapTileByCoordinates(currentCycleFragmentCoord, currentCycleChunkCoord, currentCycleY, currentCycleX));
+                */
                 currentCycleX+=1;
                 //equality into condition was added because it used to cause an exception. Originally it was '>'...
                 if (currentCycleX>=general.algodata.GeneralParam.ChunkWidth) { 

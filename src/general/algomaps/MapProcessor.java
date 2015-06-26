@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package general.algomaps;
 
 import general.AllMaps;
@@ -13,7 +8,8 @@ import general.algodata.GeneralParam;
 import general.algodata.PrototypeCollector;
 import java.util.ArrayList;
 /**
- * contains algorithms that operate on maps.  
+ * contains algorithms that operate on maps. Due to complexity, 
+ * map save/load algorithms might be moved to another module 
  * Uses classes AllMaps, FragmentMap, MapChunk. 
  * @author ivan
  */
@@ -44,30 +40,7 @@ public class MapProcessor {
         tile2Return = general.algomaps.MapProcessor.currentMapBuffer.generalMap.get(fragmentCoord).fragmentContainer.get(chunkCoord).ChunkMapContainer.get(tileX).get(tileY);
         return tile2Return;
     }
-    public static void testFillMap() { //test routine of map
-        //map chunks are initialized by this moment
-        MapChunk firstMapChunk = currentMapBuffer.generalMap.get(0).fragmentContainer.get(0);
-                for (int j=0; j<(GeneralParam.ChunkHeight); j++) {
-                    ArrayList<MapTile> singleChunkRow = new ArrayList<>();
-                    for (int k=1; k<GeneralParam.ChunkWidth; k++) {
-                        singleChunkRow.add(new MapTile(1));
-                    }
-                    firstMapChunk.ChunkMapContainer.set(j, singleChunkRow);
-                }
-        
-        for (int i=1; i<=8; i++) {
-            MapChunk theMapChunk = currentMapBuffer.generalMap.get(0).fragmentContainer.get(i);
-            System.out.println("TestFillMap: now working with Chunk #"+i+" : "+(theMapChunk==null ? "null!":"not null"));
-                for (int j=0; j<(GeneralParam.ChunkHeight); j++) {
-                    ArrayList<MapTile> singleChunkRow = new ArrayList<>();
-                    singleChunkRow.add(new MapTile(2));
-                    for (int k=1; k<GeneralParam.ChunkWidth; k++) {
-                        singleChunkRow.add(new MapTile(1));
-                    }
-                    theMapChunk.ChunkMapContainer.set(j, singleChunkRow);
-                }
-        }
-    }
+
     /**
      * finds a neighbour MapChunk. Service routine, used in MapDisplay routines
      * @param initialChunkCoord - index of MapChunk for which we need to get an index

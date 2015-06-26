@@ -2,6 +2,7 @@ package general;
 
 import general.algomaps.MapDisplay;
 import general.algomaps.MapProcessor;
+import general.algomaps.MapGenerator;
 
 /**
  * Another class with static-only routines, 
@@ -15,7 +16,7 @@ public class AlgorithmicProcessor {
     public static void newGameDataGeneration() {
         //init (generate and load) map (in MapProcessor)
             MapProcessor.initMapProcessor();
-            MapProcessor.testFillMap();
+            MapGenerator.testFillMap();
         //init player (in Player.java)
                 //no need for this here, getPlayer initializes Player internal record by itself 
                 //and it is called many times, especially in drawmap routines
