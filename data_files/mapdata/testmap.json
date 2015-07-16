@@ -1,0 +1,15 @@
+{"predefined_map": {
+        "mapchunk": [
+            {"chunk_id":0, "all_chunks":true, "single_chunk":{"id":1}},
+            {"chunk_id":1, "all_chunks":true, "single_chunk":{"id":1}},
+            {"chunk_id":2, "all_chunks":true, "single_chunk":{"id":1}},
+            {"chunk_id":3, "all_chunks":true, "single_chunk":{"id":1}},
+            {"chunk_id":4, "all_chunks":true, "single_chunk":{"id":1}},
+            {"chunk_id":5, "all_chunks":true, "single_chunk":{"id":1}},
+            {"chunk_id":6, "all_chunks":true, "single_chunk":{"id":1}},
+            {"chunk_id":7, "all_chunks":true, "single_chunk":{"id":1}},
+            {"chunk_id":8, "all_chunks":true, "single_chunk":{"id":1}}
+        ]
+}
+    
+}

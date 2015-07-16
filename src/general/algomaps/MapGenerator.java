@@ -9,7 +9,7 @@ import general.algodata.PrototypeCollector;
 import java.util.ArrayList;
 
 /**
- * this class is used to generate map data 
+ * this class is used to generate dynamic map data during runtime
  * @author ivan
  */
 public class MapGenerator {
